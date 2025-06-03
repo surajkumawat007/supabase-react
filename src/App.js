@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard';
 
 function App() {
   const [session, setSession] = useState(null);
-
+  onsole.log('App is loading') 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -21,6 +21,13 @@ function App() {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+useEffect(() => {
+  console.log("App loaded");
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    console.log("Session:", session);
+    setSession(session);
+  });
+}, []);
 
   return (
     <Router>
@@ -37,6 +44,8 @@ function App() {
       </Routes>
     </Router>
   );
+  console.log("Session:", session);
+
 }
 
 export default App;
